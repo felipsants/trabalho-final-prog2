@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+//oi
 
 // Função para inicializar a lista de pacientes
 void inicializarLista(LISTA* l)
