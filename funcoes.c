@@ -8,7 +8,8 @@
 // Função para inicializar a lista de pacientes
 void inicializarLista(LISTA* l)
 {
-
+    // Inicializando a lista com o valor NULL
+    l->inicio = NULL;
 }
 
 // Função para criar um novo paciente
@@ -48,13 +49,85 @@ PONT pesquisarPaciente(LISTA* l, char* nome)
 // Função para retirar um paciente da lista com base no nome
 void retirarPaciente(LISTA* l, char* nome)
 {
+    if (l == NULL || l->inicio == NULL) {  // Verifica se a lista esta vazia
+        printf("A lista esta vazia.\n");
+        return;
+    }
 
+    PONT paciente = pesquisarPaciente(l, nome);
+
+    // Verifica se o paciente está na lista
+    if(paciente == NULL){
+        printf("Paciente nao encontrado.\n");
+        return;
+    }
+
+    // O paciente desejado está no começo da lista
+    if(l->inicio == paciente){
+
+        l->inicio = l->inicio->prox;
+        free(paciente);
+        printf("Paciente removido com sucesso.\n");
+
+        atualizarPosicoes(l);
+        return;
+    }
+
+
+    PONT atual;
+    atual = l->inicio;
+
+    // O paciente desejado está em outra posição na lista
+    while(atual != NULL){
+
+        if(atual->prox == paciente){
+
+            atual->prox = paciente->prox;
+            free(paciente);
+            printf("Paciente removido com sucesso.\n");
+            atualizarPosicoes(l);
+            return;
+        }
+
+        atual = atual->prox;
+    }
+
+    printf("Paciente nao encontrado.\n");
 }
 
 // Função para salvar a lista de pacientes em um arquivo binário
 void salvarPacientesEmArquivo(LISTA* l, char* nome_arquivo)
 {
+    FILE *arq;
 
+    arq = fopen(nome_arquivo,"wb");
+
+    // Verifica se houve erro na criação do arquivo
+    if(arq == NULL){
+        printf("Erro na abertura do arquivo\n");
+        return;
+    }
+
+    // Verifica se a lista esta vazia
+    if (l == NULL || l->inicio == NULL) {
+        printf("A lista esta vazia.\n");
+        return;
+    }
+
+    PONT atual;
+    atual = l->inicio;
+
+    // Percorre a lista, gravando os dados no arquivo
+    while(atual != NULL){
+
+        fwrite(&(atual->reg), sizeof(REGISTRO), 1, arq);
+
+        atual = atual->prox;
+    }
+
+    // Fechando o arquivo e declarando sucesso
+    fclose(arq);
+    printf("Pacientes salvos no arquivo '%s'.\n", nome_arquivo);
 }
 
 // Função para exibir uma quantidade específica de pacientes ordenados na lista
