@@ -52,6 +52,9 @@ int main() {
 
             // Retirar paciente atendido da lista atual
             case 2:
+                // Ler nome do paciente
+                printf("Nome do paciente: ");
+                fgets(nome, MAX, stdin);
                 // Retirar paciente
                 retirarPaciente(listaAtual, nome);
                 // Atualizar posições da lista
