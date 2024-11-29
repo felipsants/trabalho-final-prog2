@@ -13,9 +13,19 @@ void inicializarLista(LISTA* l)
 }
 
 // Função para criar um novo paciente
-PONT criarPaciente(char* nome, int gravidade, time_t horario_chegada)
-{
+PONT criarPaciente(char* nome, int gravidade, time_t horario_chegada){
+    PACIENTE *novo = (PACIENTE *)malloc(sizeof(PACIENTE));
+    if(novo == NULL) {
+        printf("Erro ao alocar memória");
+        return NULL;
+    }
+    strcpy(nome,novo->reg.nome);
+    novo->reg.gravidade = gravidade;
+    novo->reg.horario_chegada = horario_chegada;
+    novo->reg.posicao = 0;
+    novo->prox = NULL;
 
+    return novo;
 }
 
 // Função para atualizar as posições da lista
