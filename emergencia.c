@@ -1,23 +1,25 @@
 #include "funcoes.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <time.h>
 #define MAX 100
 
 int main() {
     // Declaração da lista de todos os pacientes do dia e da lista que será atualizada ao decorrer do dia
-    PACIENTE* listaTotal, *listaAtual;
+    LISTA* listaTotal = (LISTA*)malloc(sizeof(LISTA));
+    LISTA* listaAtual = (LISTA*)malloc(sizeof(LISTA));
+
     // Inicializar listas
     inicializarLista(listaTotal);
     inicializarLista(listaAtual);
+
     // Declaração de todas as variáveis que serão utilizadas ao longo da main
     char nome[MAX];
     int gravidade;
     time_t horario_chegada;
-    int opcao;
-    int acesso;
-    int quantidade;
+    int opcao = 0;
+    int acesso = 0;
+    int quantidade = 0;
     char nome_arquivo[] = "controle_atendimentos.bin";
 
     // Fazer os seguintes comandos...
@@ -36,10 +38,11 @@ int main() {
             // Adicionar paciente
             case 1:
                 // Ler nome do paciente
-                printf("Nome do paciente: ");
+                printf("Nome do paciente: \n");
+                getchar();
                 fgets(nome, MAX, stdin);
                 // Ler Gravidade dos Sintomas
-                printf("Gravidade dos sintomas (1-10): ");
+                printf("Gravidade dos sintomas (1-10): \n");
                 scanf("%d", &gravidade);
                 // Obter horário de Chegada
                 horario_chegada = time(NULL);
@@ -53,7 +56,8 @@ int main() {
             // Retirar paciente atendido da lista atual
             case 2:
                 // Ler nome do paciente
-                printf("Nome do paciente: ");
+                printf("Nome do paciente: \n");
+                getchar();
                 fgets(nome, MAX, stdin);
                 // Retirar paciente
                 retirarPaciente(listaAtual, nome);
@@ -63,7 +67,7 @@ int main() {
             // Pesquisar Paciente na lista atual
             case 3:
                 // Ler nome do paciente desejado
-                printf("Nome do paciente a pesquisar: ");
+                printf("Nome do paciente a pesquisar: \n");
                 scanf("%s", nome);
                 // Pesquisar paciente na lista (Busca sequencial)
                 PACIENTE* encontrado = pesquisarPaciente(listaAtual, nome);
@@ -75,18 +79,18 @@ int main() {
                 } 
                 // Se não...
                 else {
-                    puts("Paciente nao encontrado.");
+                    puts("Paciente nao encontrado.\n");
                 }
                 break;
 
             // Ver lista ordenada
             case 4:
                 // Decidir qual lista deseja acessar
-                printf("Digite 1 para acessar a lista total ou digite 2 para a lista atual: ");
+                printf("Digite 1 para acessar a lista total ou digite 2 para a lista atual: \n");
                 scanf("%d", acesso);
 
                 // Ler a quantidade
-                printf("Quantidade desejada de pacientes a serem vistos da lista: ");
+                printf("Quantidade desejada de pacientes a serem vistos da lista: \n");
                 scanf("%d", quantidade);
                 
                 // Exibir lista total

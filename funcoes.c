@@ -6,9 +6,7 @@
 
 
 // Função para inicializar a lista de pacientes
-void inicializarLista(LISTA* l)
-{
-    // Inicializando a lista com o valor NULL
+void inicializarLista(LISTA* l){
     l->inicio = NULL;
 }
 
@@ -19,7 +17,7 @@ PONT criarPaciente(char* nome, int gravidade, time_t horario_chegada){
         printf("Erro ao alocar memória");
         return NULL;
     }
-    strcpy(nome,novo->reg.nome);
+    strcpy(novo->reg.nome, nome);
     novo->reg.gravidade = gravidade;
     novo->reg.horario_chegada = horario_chegada;
     novo->reg.posicao = 0;
@@ -29,15 +27,38 @@ PONT criarPaciente(char* nome, int gravidade, time_t horario_chegada){
 }
 
 // Função para atualizar as posições da lista
-void atualizarPosicoes(LISTA* l)
-{
+void atualizarPosicoes(LISTA* l){
+    PONT atual = l->inicio;
+    int posi = 1;
 
+    while(atual != NULL) {
+        atual->reg.posicao = posi;
+        posi++;
+        atual = atual->prox;
+    }
 }
 
 // Função para inserir um paciente na lista de forma ordenada
-void inserirPacienteOrdenado(LISTA* l, PONT novo_paciente)
-{
-
+void inserirPacienteOrdenado(LISTA* l, PONT novo_paciente){
+    if(l->inicio == NULL || l->inicio->reg.gravidade < novo_paciente->reg.gravidade
+        || (l->inicio->reg.gravidade == novo_paciente->reg.gravidade
+            && l->inicio->reg.horario_chegada > novo_paciente->reg.horario_chegada))
+        {
+        novo_paciente->prox = l->inicio;
+        l->inicio = novo_paciente;
+    }
+    else {
+        PONT atual = l->inicio;
+        while(atual->prox != NULL &&
+              (atual->prox->reg.gravidade > novo_paciente->reg.gravidade ||
+               (atual->prox->reg.gravidade == novo_paciente->reg.gravidade &&
+                atual->prox->reg.horario_chegada <= novo_paciente->reg.horario_chegada))) {
+            atual = atual->prox;
+        }
+        novo_paciente->prox = atual->prox;
+        atual->prox = novo_paciente;
+    }
+    atualizarPosicoes(l);
 }
 
 // Função para pesquisar um paciente pelo nome
@@ -120,6 +141,7 @@ void salvarPacientesEmArquivo(LISTA* l, char* nome_arquivo)
 
     // Verifica se a lista esta vazia
     if (l == NULL || l->inicio == NULL) {
+        fclose(arq);
         printf("A lista esta vazia.\n");
         return;
     }
