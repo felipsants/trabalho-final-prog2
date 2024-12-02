@@ -11,7 +11,7 @@ void inicializarLista(LISTA* l){
 }
 
 // Função para criar um novo paciente
-PONT criarPaciente(char* nome, int gravidade, time_t horario_chegada){
+PONT criarPaciente(const char* nome, int gravidade, time_t horario_chegada){
     PACIENTE *novo = (PACIENTE *)malloc(sizeof(PACIENTE));
     if(novo == NULL) {
         printf("Erro ao alocar memória");
@@ -26,38 +26,8 @@ PONT criarPaciente(char* nome, int gravidade, time_t horario_chegada){
     return novo;
 }
 
-int verificarCiclo(LISTA* l) {
-    if (l->inicio == NULL) return 0; // Lista vazia não tem ciclo
-
-    PONT lento = l->inicio;
-    PONT rapido = l->inicio;
-
-    while (rapido != NULL && rapido->prox != NULL) {
-        lento = lento->prox;
-        rapido = rapido->prox->prox;
-
-        if (lento == rapido) {
-            return 1; // Ciclo detectado
-        }
-    }
-
-    return 0; // Sem ciclo
-}
-
-void debugLista(LISTA* l) {
-    printf("Estado atual da lista:\n");
-    PONT atual = l->inicio;
-    while (atual != NULL) {
-        printf("Nome: %s, Gravidade: %d, Posicao: %d, Prox: %p\n",
-               atual->reg.nome, atual->reg.gravidade, atual->reg.posicao, (void*)atual->prox);
-        atual = atual->prox;
-    }
-    printf("------------------------\n");
-}
-
-
 // Função para atualizar as posições da lista
-void atualizarPosicoes(LISTA* l) {
+void atualizarPosicoes(const LISTA* l) {
     // Inicializa a posição do primeiro paciente
     int pos = 1;
 
@@ -74,19 +44,40 @@ void atualizarPosicoes(LISTA* l) {
 void inserirPacienteOrdenado(LISTA* l, PONT novo_paciente) {
     // Criação de uma cópia do paciente para garantir que ele não seja compartilhado entre listas
     PACIENTE* paciente_copia = (PACIENTE*)malloc(sizeof(PACIENTE));
-    *paciente_copia = *novo_paciente;  // Cópia profunda do paciente
+    if (!paciente_copia) {
+        printf("Erro ao alocar memória para o paciente.\n");
+        return;
+    }
+    *paciente_copia = *novo_paciente; // Cópia profunda do paciente
 
-    // Inserir paciente copia na lista l de forma ordenada
-    if (l->inicio == NULL || l->inicio->reg.gravidade <= paciente_copia->reg.gravidade) {
-        paciente_copia->prox = l->inicio;
+    // Caso a lista esteja vazia, adiciona diretamente no início
+    if (l->inicio == NULL) {
         l->inicio = paciente_copia;
+        paciente_copia->prox = NULL;
     } else {
         PACIENTE* atual = l->inicio;
-        while (atual->prox != NULL && atual->prox->reg.gravidade > paciente_copia->reg.gravidade) {
-            atual = atual->prox;
+
+        // Paciente deve ser inserido no início se for mais urgente ou com menor horário de chegada
+        if (atual->reg.gravidade < paciente_copia->reg.gravidade || 
+            (atual->reg.gravidade == paciente_copia->reg.gravidade &&
+             atual->reg.horario_chegada > paciente_copia->reg.horario_chegada)) {
+            paciente_copia->prox = l->inicio;
+            l->inicio = paciente_copia;
+        } else {
+            // Avançar na lista enquanto:
+            // 1. O próximo paciente tiver gravidade maior, ou
+            // 2. A gravidade for igual e o próximo paciente tiver chegado mais cedo
+            while (atual->prox != NULL &&
+                   (atual->prox->reg.gravidade > paciente_copia->reg.gravidade ||
+                   (atual->prox->reg.gravidade == paciente_copia->reg.gravidade &&
+                    atual->prox->reg.horario_chegada <= paciente_copia->reg.horario_chegada))) {
+                atual = atual->prox;
+            }
+
+            // Inserir o paciente após o ponto encontrado
+            paciente_copia->prox = atual->prox;
+            atual->prox = paciente_copia;
         }
-        paciente_copia->prox = atual->prox;
-        atual->prox = paciente_copia;
     }
 
     // Atualiza as posições na lista
@@ -94,13 +85,10 @@ void inserirPacienteOrdenado(LISTA* l, PONT novo_paciente) {
 }
 
 
-
-
 // Função para pesquisar um paciente pelo nome
-PONT pesquisarPaciente(LISTA* l, char* nome)
-{   
-    PONT atual;
-    atual = l->inicio;
+PONT pesquisarPaciente(const LISTA* l, const char* nome)
+{
+    PONT atual = l->inicio;
 
     while(atual != NULL){
         if(strcmp(atual->reg.nome, nome) == 0){
@@ -113,7 +101,7 @@ PONT pesquisarPaciente(LISTA* l, char* nome)
 }
 
 // Função para retirar um paciente da lista com base no nome
-void retirarPaciente(LISTA* l, char* nome)
+void retirarPaciente(LISTA* l, const char* nome)
 {
     if (l == NULL || l->inicio == NULL) {  // Verifica se a lista esta vazia
         printf("A lista esta vazia.\n");
@@ -140,8 +128,7 @@ void retirarPaciente(LISTA* l, char* nome)
     }
 
 
-    PONT atual;
-    atual = l->inicio;
+    PONT atual = l->inicio;
 
     // O paciente desejado está em outra posição na lista
     while(atual != NULL){
@@ -162,11 +149,9 @@ void retirarPaciente(LISTA* l, char* nome)
 }
 
 // Função para salvar a lista de pacientes em um arquivo binário
-void salvarPacientesEmArquivo(LISTA* l, char* nome_arquivo)
+void salvarPacientesEmArquivo(const LISTA* l, char* nome_arquivo)
 {
-    FILE *arq;
-
-    arq = fopen(nome_arquivo,"wb");
+    FILE *arq = fopen(nome_arquivo, "wb");
 
     // Verifica se houve erro na criação do arquivo
     if(arq == NULL){
@@ -181,8 +166,7 @@ void salvarPacientesEmArquivo(LISTA* l, char* nome_arquivo)
         return;
     }
 
-    PONT atual;
-    atual = l->inicio;
+    PONT atual = l->inicio;
 
     // Percorre a lista, gravando os dados no arquivo
     while(atual != NULL){
@@ -198,7 +182,7 @@ void salvarPacientesEmArquivo(LISTA* l, char* nome_arquivo)
 }
 
 // Função para exibir uma quantidade específica de pacientes ordenados na lista
-void exibirLista(LISTA* l, int quantidade)
+void exibirLista(const LISTA* l, int quantidade)
 {
     if (l == NULL || l->inicio == NULL) {  // Verifica se a lista esta vazia
         printf("A lista esta vazia ou a quantidade solicitada eh invalida.\n");
@@ -210,8 +194,7 @@ void exibirLista(LISTA* l, int quantidade)
         return;
     }
 
-    PONT atual;
-    atual = l->inicio;
+    PONT atual = l->inicio;
     int count = 0;  
 
     while((atual != NULL) && (count < quantidade)){
@@ -230,12 +213,12 @@ void liberarLista(LISTA* l){
     if(l == NULL)  // Verifica se a lista esta vazia
         return;
 
-    PONT atual;
-    atual = l->inicio;
+    PONT atual = l->inicio;
 
     while(atual != NULL){
         PONT apagar = atual;
         atual = atual->prox;
+        free(apagar);
     }
 
     l->inicio = NULL;
