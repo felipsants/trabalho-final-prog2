@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 #define MAX 100
 
 int main() {
@@ -50,27 +51,33 @@ int main() {
                 PACIENTE* novo_paciente = criarPaciente(nome, gravidade, horario_chegada);
                 // Inserir paciente nas listas e ordená-los (Inserction Sort)
                 inserirPacienteOrdenado(listaTotal, novo_paciente);
-                debugLista(listaTotal);
                 inserirPacienteOrdenado(listaAtual, novo_paciente);
-                debugLista(listaAtual);
                 break;
 
             // Retirar paciente atendido da lista atual
             case 2:
                 // Ler nome do paciente
-                printf("Nome do paciente: \n");
+                printf("Nome do paciente ou F para sair: \n");
                 getchar();
                 fgets(nome, MAX, stdin);
-                // Retirar paciente
-                retirarPaciente(listaAtual, nome);
-                // Atualizar posições da lista
-                atualizarPosicoes(listaAtual);
+                if (strcmp(nome, "F\n") != 0 && strcmp(nome, "f\n") != 0) {
+                    // Retirar paciente
+                    retirarPaciente(listaAtual, nome);
+                    // Atualizar posições da lista
+                    atualizarPosicoes(listaAtual);
+                }
+                else {
+                    printf("Saindo... \n");
+                    break;
+                }
+                break;
 
             // Pesquisar Paciente na lista atual
             case 3:
                 // Ler nome do paciente desejado
                 printf("Nome do paciente a pesquisar: \n");
-                scanf("%s", nome);
+                getchar();
+                fgets(nome, MAX, stdin);
                 // Pesquisar paciente na lista (Busca sequencial)
                 PACIENTE* encontrado = pesquisarPaciente(listaAtual, nome);
                 // Se o paciente foi encontrado...

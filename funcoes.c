@@ -11,7 +11,7 @@ void inicializarLista(LISTA* l){
 }
 
 // Função para criar um novo paciente
-PONT criarPaciente(char* nome, int gravidade, time_t horario_chegada){
+PONT criarPaciente(const char* nome, int gravidade, time_t horario_chegada){
     PACIENTE *novo = (PACIENTE *)malloc(sizeof(PACIENTE));
     if(novo == NULL) {
         printf("Erro ao alocar memória");
@@ -26,38 +26,8 @@ PONT criarPaciente(char* nome, int gravidade, time_t horario_chegada){
     return novo;
 }
 
-int verificarCiclo(LISTA* l) {
-    if (l->inicio == NULL) return 0; // Lista vazia não tem ciclo
-
-    PONT lento = l->inicio;
-    PONT rapido = l->inicio;
-
-    while (rapido != NULL && rapido->prox != NULL) {
-        lento = lento->prox;
-        rapido = rapido->prox->prox;
-
-        if (lento == rapido) {
-            return 1; // Ciclo detectado
-        }
-    }
-
-    return 0; // Sem ciclo
-}
-
-void debugLista(LISTA* l) {
-    printf("Estado atual da lista:\n");
-    PONT atual = l->inicio;
-    while (atual != NULL) {
-        printf("Nome: %s, Gravidade: %d, Posicao: %d, Prox: %p\n",
-               atual->reg.nome, atual->reg.gravidade, atual->reg.posicao, (void*)atual->prox);
-        atual = atual->prox;
-    }
-    printf("------------------------\n");
-}
-
-
 // Função para atualizar as posições da lista
-void atualizarPosicoes(LISTA* l) {
+void atualizarPosicoes(const LISTA* l) {
     // Inicializa a posição do primeiro paciente
     int pos = 1;
 
@@ -93,14 +63,10 @@ void inserirPacienteOrdenado(LISTA* l, PONT novo_paciente) {
     atualizarPosicoes(l);
 }
 
-
-
-
 // Função para pesquisar um paciente pelo nome
-PONT pesquisarPaciente(LISTA* l, char* nome)
-{   
-    PONT atual;
-    atual = l->inicio;
+PONT pesquisarPaciente(const LISTA* l, const char* nome)
+{
+    PONT atual = l->inicio;
 
     while(atual != NULL){
         if(strcmp(atual->reg.nome, nome) == 0){
@@ -113,7 +79,7 @@ PONT pesquisarPaciente(LISTA* l, char* nome)
 }
 
 // Função para retirar um paciente da lista com base no nome
-void retirarPaciente(LISTA* l, char* nome)
+void retirarPaciente(LISTA* l, const char* nome)
 {
     if (l == NULL || l->inicio == NULL) {  // Verifica se a lista esta vazia
         printf("A lista esta vazia.\n");
@@ -140,8 +106,7 @@ void retirarPaciente(LISTA* l, char* nome)
     }
 
 
-    PONT atual;
-    atual = l->inicio;
+    PONT atual = l->inicio;
 
     // O paciente desejado está em outra posição na lista
     while(atual != NULL){
@@ -162,11 +127,9 @@ void retirarPaciente(LISTA* l, char* nome)
 }
 
 // Função para salvar a lista de pacientes em um arquivo binário
-void salvarPacientesEmArquivo(LISTA* l, char* nome_arquivo)
+void salvarPacientesEmArquivo(const LISTA* l, char* nome_arquivo)
 {
-    FILE *arq;
-
-    arq = fopen(nome_arquivo,"wb");
+    FILE *arq = fopen(nome_arquivo, "wb");
 
     // Verifica se houve erro na criação do arquivo
     if(arq == NULL){
@@ -181,8 +144,7 @@ void salvarPacientesEmArquivo(LISTA* l, char* nome_arquivo)
         return;
     }
 
-    PONT atual;
-    atual = l->inicio;
+    PONT atual = l->inicio;
 
     // Percorre a lista, gravando os dados no arquivo
     while(atual != NULL){
@@ -198,7 +160,7 @@ void salvarPacientesEmArquivo(LISTA* l, char* nome_arquivo)
 }
 
 // Função para exibir uma quantidade específica de pacientes ordenados na lista
-void exibirLista(LISTA* l, int quantidade)
+void exibirLista(const LISTA* l, int quantidade)
 {
     if (l == NULL || l->inicio == NULL) {  // Verifica se a lista esta vazia
         printf("A lista esta vazia ou a quantidade solicitada eh invalida.\n");
@@ -210,8 +172,7 @@ void exibirLista(LISTA* l, int quantidade)
         return;
     }
 
-    PONT atual;
-    atual = l->inicio;
+    PONT atual = l->inicio;
     int count = 0;  
 
     while((atual != NULL) && (count < quantidade)){
@@ -230,12 +191,12 @@ void liberarLista(LISTA* l){
     if(l == NULL)  // Verifica se a lista esta vazia
         return;
 
-    PONT atual;
-    atual = l->inicio;
+    PONT atual = l->inicio;
 
     while(atual != NULL){
         PONT apagar = atual;
         atual = atual->prox;
+        free(apagar);
     }
 
     l->inicio = NULL;

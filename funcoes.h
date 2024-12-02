@@ -28,31 +28,27 @@ typedef struct {
 void inicializarLista(LISTA* l);
 
 // Função para criar um novo paciente
-PONT criarPaciente(char* nome, int gravidade, time_t horario_chegada);
+PONT criarPaciente(const char* nome, int gravidade, time_t horario_chegada);
 
 // Função para atualizar as posições da lista
-void atualizarPosicoes(LISTA* l);
+void atualizarPosicoes(const LISTA* l);
 
 // Função para inserir um paciente na lista de forma ordenada
 void inserirPacienteOrdenado(LISTA* l, PONT novo_paciente);
 
 // Função para pesquisar um paciente pelo nome
-PONT pesquisarPaciente(LISTA* l, char* nome);
+PONT pesquisarPaciente(const LISTA* l, const char* nome);
 
 // Função para retirar um paciente da lista com base no nome
-void retirarPaciente(LISTA* l, char* nome);
+void retirarPaciente(LISTA* l, const char* nome);
 
 // Função para salvar a lista de pacientes em um arquivo binário
-void salvarPacientesEmArquivo(LISTA* l, char* nome_arquivo);
+void salvarPacientesEmArquivo(const LISTA* l, char* nome_arquivo);
 
 // Função para exibir uma quantidade específica de pacientes ordenados na lista
-void exibirLista(LISTA* l, int quantidade);
+void exibirLista(const LISTA* l, int quantidade);
 
 // Função para liberar a memória alocada para a lista de pacientes
 void liberarLista(LISTA* l);
-
-int verificarCiclo(LISTA* l);
-
-void debugLista(LISTA* l);
 
 #endif // FUNCOES_H
