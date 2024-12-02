@@ -84,7 +84,6 @@ void inserirPacienteOrdenado(LISTA* l, PONT novo_paciente) {
     atualizarPosicoes(l);
 }
 
-
 // Função para pesquisar um paciente pelo nome
 PONT pesquisarPaciente(const LISTA* l, const char* nome)
 {
