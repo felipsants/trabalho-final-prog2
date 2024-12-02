@@ -14,7 +14,6 @@ int main() {
     inicializarLista(listaAtual);
 
     // Declaração de todas as variáveis que serão utilizadas ao longo da main
-    char nome[MAX];
     int gravidade;
     time_t horario_chegada;
     int opcao = 0;
@@ -24,6 +23,7 @@ int main() {
 
     // Fazer os seguintes comandos...
     do {
+        char nome[MAX];
         // Funcionalidades disponíveis para o usuário escolher
         puts("1. Adicionar paciente");
         puts("2. Retirar paciente");
@@ -50,7 +50,9 @@ int main() {
                 PACIENTE* novo_paciente = criarPaciente(nome, gravidade, horario_chegada);
                 // Inserir paciente nas listas e ordená-los (Inserction Sort)
                 inserirPacienteOrdenado(listaTotal, novo_paciente);
+                debugLista(listaTotal);
                 inserirPacienteOrdenado(listaAtual, novo_paciente);
+                debugLista(listaAtual);
                 break;
 
             // Retirar paciente atendido da lista atual
@@ -87,11 +89,11 @@ int main() {
             case 4:
                 // Decidir qual lista deseja acessar
                 printf("Digite 1 para acessar a lista total ou digite 2 para a lista atual: \n");
-                scanf("%d", acesso);
+                scanf("%d", &acesso);
 
                 // Ler a quantidade
                 printf("Quantidade desejada de pacientes a serem vistos da lista: \n");
-                scanf("%d", quantidade);
+                scanf("%d", &quantidade);
                 
                 // Exibir lista total
                 if (acesso == 1){

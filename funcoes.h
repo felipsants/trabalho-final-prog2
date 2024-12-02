@@ -51,4 +51,8 @@ void exibirLista(LISTA* l, int quantidade);
 // Função para liberar a memória alocada para a lista de pacientes
 void liberarLista(LISTA* l);
 
+int verificarCiclo(LISTA* l);
+
+void debugLista(LISTA* l);
+
 #endif // FUNCOES_H

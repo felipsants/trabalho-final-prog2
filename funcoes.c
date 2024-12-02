@@ -26,40 +26,75 @@ PONT criarPaciente(char* nome, int gravidade, time_t horario_chegada){
     return novo;
 }
 
-// Função para atualizar as posições da lista
-void atualizarPosicoes(LISTA* l){
-    PONT atual = l->inicio;
-    int posi = 1;
+int verificarCiclo(LISTA* l) {
+    if (l->inicio == NULL) return 0; // Lista vazia não tem ciclo
 
-    while(atual != NULL) {
-        atual->reg.posicao = posi;
-        posi++;
+    PONT lento = l->inicio;
+    PONT rapido = l->inicio;
+
+    while (rapido != NULL && rapido->prox != NULL) {
+        lento = lento->prox;
+        rapido = rapido->prox->prox;
+
+        if (lento == rapido) {
+            return 1; // Ciclo detectado
+        }
+    }
+
+    return 0; // Sem ciclo
+}
+
+void debugLista(LISTA* l) {
+    printf("Estado atual da lista:\n");
+    PONT atual = l->inicio;
+    while (atual != NULL) {
+        printf("Nome: %s, Gravidade: %d, Posicao: %d, Prox: %p\n",
+               atual->reg.nome, atual->reg.gravidade, atual->reg.posicao, (void*)atual->prox);
         atual = atual->prox;
+    }
+    printf("------------------------\n");
+}
+
+
+// Função para atualizar as posições da lista
+void atualizarPosicoes(LISTA* l) {
+    // Inicializa a posição do primeiro paciente
+    int pos = 1;
+
+    // Percorre a lista atualizada
+    PACIENTE* atual = l->inicio;
+    while (atual != NULL) {
+        atual->reg.posicao = pos; // Atribui a posição ao paciente
+        atual = atual->prox; // Move para o próximo paciente
+        pos++; // Incrementa a posição
     }
 }
 
 // Função para inserir um paciente na lista de forma ordenada
-void inserirPacienteOrdenado(LISTA* l, PONT novo_paciente){
-    if(l->inicio == NULL || l->inicio->reg.gravidade < novo_paciente->reg.gravidade
-        || (l->inicio->reg.gravidade == novo_paciente->reg.gravidade
-            && l->inicio->reg.horario_chegada > novo_paciente->reg.horario_chegada))
-        {
-        novo_paciente->prox = l->inicio;
-        l->inicio = novo_paciente;
-    }
-    else {
-        PONT atual = l->inicio;
-        while(atual->prox != NULL &&
-              (atual->prox->reg.gravidade > novo_paciente->reg.gravidade ||
-               (atual->prox->reg.gravidade == novo_paciente->reg.gravidade &&
-                atual->prox->reg.horario_chegada <= novo_paciente->reg.horario_chegada))) {
+void inserirPacienteOrdenado(LISTA* l, PONT novo_paciente) {
+    // Criação de uma cópia do paciente para garantir que ele não seja compartilhado entre listas
+    PACIENTE* paciente_copia = (PACIENTE*)malloc(sizeof(PACIENTE));
+    *paciente_copia = *novo_paciente;  // Cópia profunda do paciente
+
+    // Inserir paciente copia na lista l de forma ordenada
+    if (l->inicio == NULL || l->inicio->reg.gravidade <= paciente_copia->reg.gravidade) {
+        paciente_copia->prox = l->inicio;
+        l->inicio = paciente_copia;
+    } else {
+        PACIENTE* atual = l->inicio;
+        while (atual->prox != NULL && atual->prox->reg.gravidade > paciente_copia->reg.gravidade) {
             atual = atual->prox;
         }
-        novo_paciente->prox = atual->prox;
-        atual->prox = novo_paciente;
+        paciente_copia->prox = atual->prox;
+        atual->prox = paciente_copia;
     }
+
+    // Atualiza as posições na lista
     atualizarPosicoes(l);
 }
+
+
+
 
 // Função para pesquisar um paciente pelo nome
 PONT pesquisarPaciente(LISTA* l, char* nome)
@@ -191,8 +226,7 @@ void exibirLista(LISTA* l, int quantidade)
 }
 
 // Função para liberar a memória alocada para a lista de pacientes
-void liberarLista(LISTA* l)
-{
+void liberarLista(LISTA* l){
     if(l == NULL)  // Verifica se a lista esta vazia
         return;
 
@@ -202,7 +236,6 @@ void liberarLista(LISTA* l)
     while(atual != NULL){
         PONT apagar = atual;
         atual = atual->prox;
-        free(apagar);
     }
 
     l->inicio = NULL;
