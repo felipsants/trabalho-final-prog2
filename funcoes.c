@@ -112,6 +112,7 @@ void retirarPaciente(LISTA* l, const char* nome)
     // Verifica se o paciente está na lista
     if(paciente == NULL){
         printf("Paciente nao encontrado.\n");
+        printf("------------------------\n");
         return;
     }
 
@@ -121,7 +122,7 @@ void retirarPaciente(LISTA* l, const char* nome)
         l->inicio = l->inicio->prox;
         free(paciente);
         printf("Paciente removido com sucesso.\n");
-
+        printf("------------------------\n");
         atualizarPosicoes(l);
         return;
     }
@@ -138,6 +139,7 @@ void retirarPaciente(LISTA* l, const char* nome)
             free(paciente);
             printf("Paciente removido com sucesso.\n");
             atualizarPosicoes(l);
+            printf("------------------------\n");
             return;
         }
 
@@ -151,7 +153,6 @@ void retirarPaciente(LISTA* l, const char* nome)
 void salvarPacientesEmArquivo(const LISTA* l, char* nome_arquivo)
 {
     FILE *arq = fopen(nome_arquivo, "wb");
-
     // Verifica se houve erro na criação do arquivo
     if(arq == NULL){
         printf("Erro na abertura do arquivo\n");
@@ -174,9 +175,9 @@ void salvarPacientesEmArquivo(const LISTA* l, char* nome_arquivo)
 
         atual = atual->prox;
     }
-
     // Fechando o arquivo e declarando sucesso
     fclose(arq);
+
     printf("Pacientes salvos no arquivo '%s'.\n", nome_arquivo);
 }
 
@@ -222,3 +223,5 @@ void liberarLista(LISTA* l){
 
     l->inicio = NULL;
 }
+
+

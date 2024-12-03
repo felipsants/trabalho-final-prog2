@@ -28,17 +28,18 @@ int main() {
     int opcao = 0;
     int acesso = 0;
     int quantidade = 0;
-    char nome_arquivo[] = "controle_atendimentos.bin";
 
     // Fazer os seguintes comandos...
     do {
         char nome[MAX];
         // Funcionalidades disponíveis para o usuário escolher
-        puts("1. Adicionar paciente");
-        puts("2. Retirar paciente");
-        puts("3. Pesquisar paciente");
-        puts("4. Ver lista ordenada");
-        puts("5. Salvar e sair");
+        puts("Sistema de Fila para recepcao hospitalar");
+        printf("\t------------------------\n");
+        puts("\t1. Adicionar paciente");
+        puts("\t2. Retirar paciente");
+        puts("\t3. Pesquisar paciente");
+        puts("\t4. Ver lista ordenada");
+        puts("\t5. Salvar e sair");
         printf("Escolha uma opcao: ");
         // Ler opção escolhida
         scanf("%d", &opcao);
@@ -89,9 +90,10 @@ int main() {
                 // Pesquisar paciente na lista (Busca sequencial)
                 PACIENTE* encontrado = pesquisarPaciente(listaAtual, nome);
 
-                encontrado->reg.nome[strcspn(encontrado->reg.nome, "\n")] = 0;
                 // Se o paciente foi encontrado...
                 if (encontrado != NULL) {
+                    encontrado->reg.nome[strcspn(encontrado->reg.nome, "\n")] = 0;
+
                     // Printar os dados dele
                     printf("Paciente encontrado: %s, Gravidade: %d, Posicao: %d, Horario de chegada: %s\n", 
                            encontrado->reg.nome, encontrado->reg.gravidade, encontrado->reg.posicao, 
@@ -129,8 +131,16 @@ int main() {
 
             // Salvar e sair
             case 5:
+                // Obter o horário atual
+                time_t now = time(NULL);
+                struct tm* t = localtime(&now);
+
+                // Criar uma string para o nome do arquivo com data
+                char nome_arquivo_data[150];
+                strftime(nome_arquivo_data, sizeof(nome_arquivo_data), "controle_atendimentos_%d-%m-%Y.bin", t);
+
                 // Salvar lista de pacientes em um arquivo binário
-                salvarPacientesEmArquivo(listaTotal, nome_arquivo);
+                salvarPacientesEmArquivo(listaTotal, nome_arquivo_data);
                 // liberar memória alocada para a lista
                 liberarLista(listaTotal);
                 liberarLista(listaAtual);

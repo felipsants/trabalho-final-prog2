@@ -1,16 +1,4 @@
 # ninja log v5
-15	369	7548617883709289	CMakeFiles/projeto_prog2.dir/emergencia.c.obj	f7d1774bd8bdf609
-39	393	7548617883953127	CMakeFiles/projeto_prog2.dir/funcoes.c.obj	27b835fd38827d4f
-394	749	7548617887325008	projeto_prog2.exe	8c0bab831020e341
-20	317	7548618358304880	CMakeFiles/projeto_prog2.dir/emergencia.c.obj	f7d1774bd8bdf609
-42	347	7548618358628292	CMakeFiles/projeto_prog2.dir/funcoes.c.obj	27b835fd38827d4f
-347	662	7548618361665846	projeto_prog2.exe	8c0bab831020e341
-16	316	7548618864072592	CMakeFiles/projeto_prog2.dir/emergencia.c.obj	f7d1774bd8bdf609
-39	348	7548618864415187	CMakeFiles/projeto_prog2.dir/funcoes.c.obj	27b835fd38827d4f
-386	698	7548618867806246	projeto_prog2.exe	8c0bab831020e341
-18	335	7548619087963264	CMakeFiles/projeto_prog2.dir/emergencia.c.obj	f7d1774bd8bdf609
-41	362	7548619088251417	CMakeFiles/projeto_prog2.dir/funcoes.c.obj	27b835fd38827d4f
-363	679	7548619091316290	projeto_prog2.exe	8c0bab831020e341
-11	290	7548620318642865	CMakeFiles/projeto_prog2.dir/emergencia.c.obj	f7d1774bd8bdf609
-30	319	7548620318954320	CMakeFiles/projeto_prog2.dir/funcoes.c.obj	27b835fd38827d4f
-320	632	7548620321985040	projeto_prog2.exe	8c0bab831020e341
+15	375	7549686962879934	CMakeFiles/projeto_prog2.dir/emergencia.c.obj	f7d1774bd8bdf609
+25	231	7549684051279677	CMakeFiles/projeto_prog2.dir/funcoes.c.obj	27b835fd38827d4f
+377	701	7549686965981019	projeto_prog2.exe	8c0bab831020e341
