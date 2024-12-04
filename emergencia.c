@@ -92,8 +92,6 @@ int main() {
 
                 // Se o paciente foi encontrado...
                 if (encontrado != NULL) {
-
-
                     // Printar os dados dele
                     printf("Paciente encontrado: %s, Gravidade: %d, Posicao: %d, Horario de chegada: %s\n", 
                            encontrado->reg.nome, encontrado->reg.gravidade, encontrado->reg.posicao, 
