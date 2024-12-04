@@ -92,7 +92,7 @@ int main() {
 
                 // Se o paciente foi encontrado...
                 if (encontrado != NULL) {
-                    encontrado->reg.nome[strcspn(encontrado->reg.nome, "\n")] = 0;
+
 
                     // Printar os dados dele
                     printf("Paciente encontrado: %s, Gravidade: %d, Posicao: %d, Horario de chegada: %s\n", 
@@ -137,7 +137,8 @@ int main() {
 
                 // Criar uma string para o nome do arquivo com data
                 char nome_arquivo_data[150];
-                strftime(nome_arquivo_data, sizeof(nome_arquivo_data), "controle_atendimentos_%d-%m-%Y.bin", t);
+                strftime(nome_arquivo_data, sizeof(nome_arquivo_data),
+                    "controle_atendimentos_%d-%m-%Y.bin", t);
 
                 // Salvar lista de pacientes em um arquivo binário
                 salvarPacientesEmArquivo(listaTotal, nome_arquivo_data);

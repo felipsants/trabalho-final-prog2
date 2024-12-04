@@ -177,7 +177,6 @@ void salvarPacientesEmArquivo(const LISTA* l, char* nome_arquivo)
     }
     // Fechando o arquivo e declarando sucesso
     fclose(arq);
-
     printf("Pacientes salvos no arquivo '%s'.\n", nome_arquivo);
 }
 
