@@ -9,6 +9,6 @@ No projeto, foram utilizados conceitos aprendidos durante a disciplina, como: al
 
 ## Integrantes
 - Rafael Mello dos Santos
-- Isaac Maiolino da Silva
+- Isaac Maiolino Vianna
 - Pedro Tonelli da Cunha
 - Carlos Felipe dos Santos Pereira
