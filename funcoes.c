@@ -111,6 +111,7 @@ void retirarPaciente(LISTA* l, const char* nome)
 
     // Verifica se o paciente está na lista
     if(paciente == NULL){
+        printf("------------------------\n");
         printf("Paciente nao encontrado.\n");
         printf("------------------------\n");
         return;
@@ -121,8 +122,9 @@ void retirarPaciente(LISTA* l, const char* nome)
 
         l->inicio = l->inicio->prox;
         free(paciente);
+        printf("-------------------------------\n");
         printf("Paciente removido com sucesso.\n");
-        printf("------------------------\n");
+        printf("-------------------------------\n");
         atualizarPosicoes(l);
         return;
     }
@@ -137,16 +139,18 @@ void retirarPaciente(LISTA* l, const char* nome)
 
             atual->prox = paciente->prox;
             free(paciente);
+            printf("-------------------------------\n");
             printf("Paciente removido com sucesso.\n");
+            printf("-------------------------------\n");
             atualizarPosicoes(l);
-            printf("------------------------\n");
             return;
         }
 
         atual = atual->prox;
     }
-
+    printf("------------------------\n");
     printf("Paciente nao encontrado.\n");
+    printf("------------------------\n");
 }
 
 // Função para salvar a lista de pacientes em um arquivo binário
@@ -162,7 +166,9 @@ void salvarPacientesEmArquivo(const LISTA* l, char* nome_arquivo)
     // Verifica se a lista esta vazia
     if (l == NULL || l->inicio == NULL) {
         fclose(arq);
+        printf("-------------------\n");
         printf("A lista esta vazia.\n");
+        printf("-------------------\n");
         return;
     }
 
@@ -177,19 +183,25 @@ void salvarPacientesEmArquivo(const LISTA* l, char* nome_arquivo)
     }
     // Fechando o arquivo e declarando sucesso
     fclose(arq);
+    printf("---------------------------------\n");
     printf("Pacientes salvos no arquivo '%s'.\n", nome_arquivo);
+    printf("---------------------------------\n");
 }
 
 // Função para exibir uma quantidade específica de pacientes ordenados na lista
 void exibirLista(const LISTA* l, int quantidade)
 {
     if (l == NULL || l->inicio == NULL) {  // Verifica se a lista esta vazia
+        printf("----------------------------------------------------------\n");
         printf("A lista esta vazia ou a quantidade solicitada eh invalida.\n");
+        printf("----------------------------------------------------------\n");
         return;
     }
 
     if (quantidade <= 0) {  // Garante que "quantidade" seja positivo e maior que 0
+        printf("----------------------------------\n");
         printf("Quantidade solicitada eh invalida.\n");
+        printf("----------------------------------\n");
         return;
     }
 
@@ -197,8 +209,9 @@ void exibirLista(const LISTA* l, int quantidade)
     int count = 0;  
 
     while((atual != NULL) && (count < quantidade)){
+        printf("------------------------\n");
         printf("Posicao: %d \n", atual->reg.posicao);
-        printf("Nome: %s \n", atual->reg.nome);
+        printf("Nome: %s", atual->reg.nome);
         printf("Gravidade: %d \n", atual->reg.gravidade);
         printf("Horario de Chegada: %s", ctime(&atual->reg.horario_chegada));
         printf("------------------------\n");  // Facilita visualmente a separacao entre pacientes

@@ -1,0 +1,216 @@
+        ==========================
+Sistema de Fila para recepcao hospitalar
+        ==========================
+        1. Adicionar paciente
+        2. Retirar paciente
+        3. Pesquisar paciente
+        4. Ver lista ordenada
+        5. Salvar e sair
+Escolha uma opcao: 1
+
+Nome do paciente: Isaac Maiolino Vianna
+
+Gravidade dos sintomas (1-10): 7
+        ==========================
+Sistema de Fila para recepcao hospitalar
+        ==========================
+        1. Adicionar paciente
+        2. Retirar paciente
+        3. Pesquisar paciente
+        4. Ver lista ordenada
+        5. Salvar e sair
+Escolha uma opcao: 1
+
+Nome do paciente: Pedro Tonelli da Cunha
+
+Gravidade dos sintomas (1-10): 7
+        ==========================
+Sistema de Fila para recepcao hospitalar
+        ==========================
+        1. Adicionar paciente
+        2. Retirar paciente
+        3. Pesquisar paciente
+        4. Ver lista ordenada
+        5. Salvar e sair
+Escolha uma opcao: 1
+
+Nome do paciente: Carlos Felipe Dos Santos
+
+Gravidade dos sintomas (1-10): 9
+        ==========================
+Sistema de Fila para recepcao hospitalar
+        ==========================
+        1. Adicionar paciente
+        2. Retirar paciente
+        3. Pesquisar paciente
+        4. Ver lista ordenada
+        5. Salvar e sair
+Escolha uma opcao: 1
+
+Nome do paciente: Rafael Mello
+
+Gravidade dos sintomas (1-10): 7
+        ==========================
+Sistema de Fila para recepcao hospitalar
+        ==========================
+        1. Adicionar paciente
+        2. Retirar paciente
+        3. Pesquisar paciente
+        4. Ver lista ordenada
+        5. Salvar e sair
+Escolha uma opcao: 4
+
+Digite 1 para acessar a lista total ou digite 2 para a lista atual: 1
+
+Quantidade desejada de pacientes a serem vistos da lista: 4
+------------------------
+Posicao: 1
+Nome: Carlos Felipe Dos Santos
+Gravidade: 9
+Horario de Chegada: Thu Dec 05 20:49:00 2024
+------------------------
+------------------------
+Posicao: 2
+Nome: Isaac Maiolino Vianna
+Gravidade: 7
+Horario de Chegada: Thu Dec 05 20:48:36 2024
+------------------------
+------------------------
+Posicao: 3
+Nome: Pedro Tonelli da Cunha
+Gravidade: 7
+Horario de Chegada: Thu Dec 05 20:48:48 2024
+------------------------
+------------------------
+Posicao: 4
+Nome: Rafael Mello
+Gravidade: 7
+Horario de Chegada: Thu Dec 05 20:49:10 2024
+------------------------
+        ==========================
+Sistema de Fila para recepcao hospitalar
+        ==========================
+        1. Adicionar paciente
+        2. Retirar paciente
+        3. Pesquisar paciente
+        4. Ver lista ordenada
+        5. Salvar e sair
+Escolha uma opcao: 2
+
+Nome do paciente ou F para sair: Pedro Tonelli da Cunha
+-------------------------------
+Paciente removido com sucesso.
+-------------------------------
+        ==========================
+Sistema de Fila para recepcao hospitalar
+        ==========================
+        1. Adicionar paciente
+        2. Retirar paciente
+        3. Pesquisar paciente
+        4. Ver lista ordenada
+        5. Salvar e sair
+Escolha uma opcao: 4
+
+Digite 1 para acessar a lista total ou digite 2 para a lista atual: 1
+
+Quantidade desejada de pacientes a serem vistos da lista: 4
+------------------------
+Posicao: 1
+Nome: Carlos Felipe Dos Santos
+Gravidade: 9
+Horario de Chegada: Thu Dec 05 20:49:00 2024
+------------------------
+------------------------
+Posicao: 2
+Nome: Isaac Maiolino Vianna
+Gravidade: 7
+Horario de Chegada: Thu Dec 05 20:48:36 2024
+------------------------
+------------------------
+Posicao: 3
+Nome: Pedro Tonelli da Cunha
+Gravidade: 7
+Horario de Chegada: Thu Dec 05 20:48:48 2024
+------------------------
+------------------------
+Posicao: 4
+Nome: Rafael Mello
+Gravidade: 7
+Horario de Chegada: Thu Dec 05 20:49:10 2024
+------------------------
+        ==========================
+Sistema de Fila para recepcao hospitalar
+        ==========================
+        1. Adicionar paciente
+        2. Retirar paciente
+        3. Pesquisar paciente
+        4. Ver lista ordenada
+        5. Salvar e sair
+Escolha uma opcao: 4
+
+Digite 1 para acessar a lista total ou digite 2 para a lista atual: 2
+
+Quantidade desejada de pacientes a serem vistos da lista: 4
+------------------------
+Posicao: 1
+Nome: Carlos Felipe Dos Santos
+Gravidade: 9
+Horario de Chegada: Thu Dec 05 20:49:00 2024
+------------------------
+------------------------
+Posicao: 2
+Nome: Isaac Maiolino Vianna
+Gravidade: 7
+Horario de Chegada: Thu Dec 05 20:48:36 2024
+------------------------
+------------------------
+Posicao: 3
+Nome: Rafael Mello
+Gravidade: 7
+Horario de Chegada: Thu Dec 05 20:49:10 2024
+------------------------
+        ==========================
+Sistema de Fila para recepcao hospitalar
+        ==========================
+        1. Adicionar paciente
+        2. Retirar paciente
+        3. Pesquisar paciente
+        4. Ver lista ordenada
+        5. Salvar e sair
+Escolha uma opcao: 3
+
+Nome do paciente a pesquisar: Isaac Maiolino Vianna
+--------------------------------------------
+Paciente encontrado:
+Nome: Isaac Maiolino Vianna
+Gravidade: 7
+Posicao: 2
+Horario de chegada: Thu Dec 05 20:48:36 2024
+
+--------------------------------------------
+        ==========================
+Sistema de Fila para recepcao hospitalar
+        ==========================
+        1. Adicionar paciente
+        2. Retirar paciente
+        3. Pesquisar paciente
+        4. Ver lista ordenada
+        5. Salvar e sair
+Escolha uma opcao: 2
+
+Nome do paciente ou F para sair: Isaac Maiolino Vianna
+-------------------------------
+Paciente removido com sucesso.
+-------------------------------
+        ==========================
+Sistema de Fila para recepcao hospitalar
+        ==========================
+        1. Adicionar paciente
+        2. Retirar paciente
+        3. Pesquisar paciente
+        4. Ver lista ordenada
+        5. Salvar e sair
+Escolha uma opcao: 3
+
+Nome do paciente a pesquisar: Isaac Maiolino Vianna
+Paciente nao encontrado.

@@ -9,7 +9,7 @@ int main() {
     // Declaração da lista de todos os pacientes do dia e da lista que será atualizada ao decorrer do dia
     LISTA* listaTotal = (LISTA*)malloc(sizeof(LISTA));
     if (!listaTotal) {
-        puts("Erro ao alocar memória para listaTotal");
+        puts("Erro ao alocar memória pWara listaTotal");
         return 1;
     }
     LISTA* listaAtual = (LISTA*)malloc(sizeof(LISTA));
@@ -33,8 +33,9 @@ int main() {
     do {
         char nome[MAX];
         // Funcionalidades disponíveis para o usuário escolher
+        printf("\t==========================\n");
         puts("Sistema de Fila para recepcao hospitalar");
-        printf("\t------------------------\n");
+        printf("\t==========================\n");
         puts("\t1. Adicionar paciente");
         puts("\t2. Retirar paciente");
         puts("\t3. Pesquisar paciente");
@@ -48,11 +49,11 @@ int main() {
             // Adicionar paciente
             case 1:
                 // Ler nome do paciente
-                printf("Nome do paciente: \n");
+                printf("\nNome do paciente: ");
                 getchar();
                 fgets(nome, MAX, stdin);
                 // Ler Gravidade dos Sintomas
-                printf("Gravidade dos sintomas (1-10): \n");
+                printf("\nGravidade dos sintomas (1-10): ");
                 scanf("%d", &gravidade);
                 // Obter horário de Chegada
                 horario_chegada = time(NULL);
@@ -66,7 +67,7 @@ int main() {
             // Retirar paciente atendido da lista atual
             case 2:
                 // Ler nome do paciente
-                printf("Nome do paciente ou F para sair: \n");
+                printf("\nNome do paciente ou F para sair: ");
                 getchar();
                 fgets(nome, MAX, stdin);
                 if (strcmp(nome, "F\n") != 0 && strcmp(nome, "f\n") != 0) {
@@ -84,7 +85,7 @@ int main() {
             // Pesquisar Paciente na lista atual
             case 3:
                 // Ler nome do paciente desejado
-                printf("Nome do paciente a pesquisar: \n");
+                printf("\nNome do paciente a pesquisar: ");
                 getchar();
                 fgets(nome, MAX, stdin);
                 // Pesquisar paciente na lista (Busca sequencial)
@@ -93,24 +94,28 @@ int main() {
                 // Se o paciente foi encontrado...
                 if (encontrado != NULL) {
                     // Printar os dados dele
-                    printf("Paciente encontrado: %s, Gravidade: %d, Posicao: %d, Horario de chegada: %s\n", 
+                    printf("--------------------------------------------\n");
+                    printf("Paciente encontrado:\nNome: %sGravidade: %d\nPosicao: %d\nHorario de chegada: %s\n",
                            encontrado->reg.nome, encontrado->reg.gravidade, encontrado->reg.posicao, 
                            ctime(&encontrado->reg.horario_chegada));
+                    printf("--------------------------------------------\n");
                 } 
                 // Se não...
                 else {
-                    puts("Paciente nao encontrado.\n");
+                    printf("------------------------\n");
+                    puts("Paciente nao encontrado.");
+                    printf("------------------------\n");
                 }
                 break;
 
             // Ver lista ordenada
             case 4:
                 // Decidir qual lista deseja acessar
-                printf("Digite 1 para acessar a lista total ou digite 2 para a lista atual: \n");
+                printf("\nDigite 1 para acessar a lista total ou digite 2 para a lista atual: ");
                 scanf("%d", &acesso);
 
                 // Ler a quantidade
-                printf("Quantidade desejada de pacientes a serem vistos da lista: \n");
+                printf("\nQuantidade desejada de pacientes a serem vistos da lista: ");
                 scanf("%d", &quantidade);
                 
                 // Exibir lista total
